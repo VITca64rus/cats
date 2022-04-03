@@ -1,30 +1,24 @@
-version: '3'
+version: '2.1'
 services:
-  flask2:
-    # Путь до Dockerfile
-    build: .
-    # Имя для создаваемого контейнера
-    container_name: backend-flask2
-    # Создание переменных окружения в контейнере
-    environment:
-      # для отладки (при запуске в релиз убрать!)
-      - FLASK_ENV=development
-      ## Позволяет отслеживать процесс работы приложения в командной строке
-      - PYTHONUNBUFFERED=True
-    restart: on-failure
-#    volumes:
-#    - ./sber:/sber
-    ports:
-      - "3000:3000"
-    command: python start.py
-    depends_on:
-      - db
-  db:
-    image: postgres
-    container_name: db
+  postgres:
+    restart: always
+    image: postgres:10
+    container_name: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: sber
     ports:
       - 5432:5432
+
+  sber1:
+    build: .
+    container_name: sber1
+    restart: on-failure
+    volumes:
+    - .:/sber
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+#    entrypoint: ["python3", "start.py"]
