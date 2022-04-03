@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/css?family=Lora);
+body {margin:0;}
+
+.content{
+    display: block;
+    width: 800px;
+    margin: 0 auto 30px;
+}
+
+ul {
+  list-style: none;
+  margin: 0 auto;
+}
+a {
+  text-decoration: none;
+  font-family: 'Lora', serif;
+  transition: .5s linear;
+}
+i {
+  margin-right: 10px;
+}
+nav {
+  display: block;
+  width: 800px;
+  margin: 0 auto 30px;
+}
+.menu ul {
+  display: -webkit-flex;
+  display: flex;
+  background: #FFD7A7;
+  padding-left: 0;
+}
+.menu a {
+  padding: 1em;
+  display: block;
+  color: #9B4222;
+  border-right: 1px solid #FFAB51;
+  background: rgba(255, 171, 81, .3);
+}
+.four a:hover {background: #FFAB51}
+
+.post{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.post:hover{
+    background: #ebebeb;
+}
+
+.post_info{
+  display: inline-block;
+  position: relative;
+  bottom:0;
+  height: 200px;
+  width: 300px;
+}
+
+.post_text{
+    padding: 5px;
+    position:absolute;
+    bottom:3;
+    height: 195px;
+    width: 455px;
+    font-size: 14pt;
+}
+
+.info {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#pagination {
+	display: flex;
+	padding: 0;
+	list-style-type: none;
+}
+#pagination li {
+	margin-right: 5px;
+	padding: 10px;
+	border: 1px solid black;
+}
+#pagination li:hover, #pagination li.active {
+	cursor: pointer;
+	color: red;
+	border: 1px solid red;
+}

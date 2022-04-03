@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script>
+$(document).ready(function() {
+$(function unload_1(){
+        $.getJSON('http://127.0.0.1:3000/list?id=' + $_GET('id'), function(data) {
+
+                    $('#cat').append(`
+                                            <img class="post_info" src=${data[0].photo}>
+                                            <h2>Меня зовут ${data[0].name}, мне ${data[0].age} мес.</h2>
+                                            <div>Порода: ${data[0].breed}</div>
+                                            <p>${data[0].info}</p>
+                                    `);
+
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block title %}
+    {{ name }}
+{% endblock %}
+
+{% block body %}
+ <div id="cat"></div>
+{% endblock %}
