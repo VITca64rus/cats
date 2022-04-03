@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-#import flask_whooshalchemy as wa
 from flask_login import LoginManager
+from werkzeug.security import generate_password_hash
 
 
 
@@ -15,5 +15,10 @@ manager = LoginManager(app)
 from sber import models, routes
 
 #wa.whoosh_index(app,models.Cat)
-from fulltext import *
+# from fulltext import *
 db.create_all()
+
+from sber.models import User
+me = User(login='root', password=generate_password_hash('root'))
+db.session.add(me)
+db.session.commit()

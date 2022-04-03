@@ -9,7 +9,7 @@ from sber.full_text_search import create_connection, execute_read_query
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
     login = request.form.get('login')
-    password = request.form.get ('password')
+    password = request.form.get('password')
     if login and password:
         user = User.query.filter_by(login=login).first()
         if user and check_password_hash(user.password, password):
