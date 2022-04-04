@@ -21,6 +21,8 @@ services:
       - USER_DB=postgres
       - PASSWORD_DB=root
       - FLASK_SECRET=super_secret_key
+      - ADM_LOGIN=root
+      - ADM_PASSWORD=root
     ports:
       - 3000:3000
     depends_on:

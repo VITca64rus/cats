@@ -1,43 +1,36 @@
-@import url(https://fonts.googleapis.com/css?family=Lora);
 body {margin:0;}
 
 .content{
     display: block;
     width: 800px;
-    margin: 0 auto 30px;
+    height: 200px;
+    margin: 0 auto 10px;
 }
 
 ul {
   list-style: none;
   margin: 0 auto;
 }
-a {
-  text-decoration: none;
-  font-family: 'Lora', serif;
-  transition: .5s linear;
-}
-i {
-  margin-right: 10px;
-}
+
 nav {
   display: block;
   width: 800px;
-  margin: 0 auto 30px;
+  margin: 0 auto 10px;
 }
+
 .menu ul {
   display: -webkit-flex;
   display: flex;
-  background: #FFD7A7;
   padding-left: 0;
 }
 .menu a {
   padding: 1em;
   display: block;
-  color: #9B4222;
-  border-right: 1px solid #FFAB51;
-  background: rgba(255, 171, 81, .3);
+  color: #3f3f3f;
+  border-right: 1px solid #bdbebd;
+  height: 20px
 }
-.four a:hover {background: #FFAB51}
+.four a:hover {background: #d3d3d3}
 
 .post{
     margin-top: 5px;

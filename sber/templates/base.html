@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
@@ -11,13 +11,12 @@
 <body>
     <nav class="menu">
         <ul>
-            <li><a href="/">СберМурркет</a></li>
-            <li><a href="/admin/cats">Все котики</a></li>
+            <li><a href="/"><img src="../static/img/logo.png" width="200"></a></li>
+            <li><a href="/admin/cats">Котики</a></li>
             <li><a href="/login">Авторизация</a></li>
         </ul>
     </nav>
     <div class="content">
         {% block body %}{% endblock %}
-    </div>
 </body>
 </html>

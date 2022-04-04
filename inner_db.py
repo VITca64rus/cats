@@ -6,9 +6,9 @@ from sber import db
 
 def inner():
     data = []
-    admin = User.query.filter_by(login=os.environ['PASSWORD_DB']).first()
+    admin = User.query.filter_by(login=os.environ['ADM_LOGIN']).first()
     if admin is None:
-        admin = User(login=os.environ['USER_DB'], password=generate_password_hash(os.environ['PASSWORD_DB']))
+        admin = User(login=os.environ['ADM_LOGIN'], password=generate_password_hash(os.environ['ADM_PASSWORD']))
         db.session.add(admin)
         db.session.commit()
     data.append(Cat(name='Мартин', age='8', breed='Мэйн-кун', info='Красивый мальчик',

@@ -4,8 +4,7 @@
 <script>
 $(document).ready(function() {
 $(function unload_1(){
-        $.getJSON('http://127.0.0.1:3000/list?id=' + $_GET('id'), function(data) {
-
+        $.getJSON('http://'+window.location.hostname+':3000/list?id=' + $_GET('id'), function(data) {
                     $('#cat').append(`
                                             <img class="post_info" src=${data[0].photo}>
                                             <h2>Меня зовут ${data[0].name}, мне ${data[0].age} мес.</h2>
