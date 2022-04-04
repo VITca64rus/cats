@@ -1,5 +1,5 @@
 num = 1;
-count_pagination = 2;
+count_pagination = 5;
 
 function Change(number) {
     num = number;

@@ -74,7 +74,7 @@ def get_list():
     if cat_id:
         return jsonify(get_result_for_id(cat_id))
     elif sort and find:
-        connect = create_connection("sber", "postgres", "root", "127.0.0.1", "5432")
+        connect = create_connection("sber", "postgres", "root", "postgres", "5432")
         if connect:
             if sort == '1' or (sort is None):
                 info = execute_read_query(connect, find, 'name')
