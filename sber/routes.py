@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, flash, url_for, jsonify
-from flask_login import login_user, login_required
+from flask_login import login_user, login_required, logout_user
 from werkzeug.security import check_password_hash
 import os
 from sber.models import User, Cat
@@ -21,6 +21,7 @@ def login_page():
             else:
                 return render_template("cats.html")
         else:
+            logout_user()
             flash('Login or password is not correct')
     else:
         flash('Please fill login and password fields')
