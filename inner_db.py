@@ -1,13 +1,14 @@
-from sber.models import User, Cat
+import os
 from werkzeug.security import generate_password_hash
+from sber.models import User, Cat
 from sber import db
 
 
 def inner():
     data = []
-    admin = User.query.filter_by(login="root").first()
+    admin = User.query.filter_by(login=os.environ['PASSWORD_DB']).first()
     if admin is None:
-        admin = User(login='root', password=generate_password_hash('root'))
+        admin = User(login=os.environ['USER_DB'], password=generate_password_hash(os.environ['PASSWORD_DB']))
         db.session.add(admin)
         db.session.commit()
     data.append(Cat(name='Мартин', age='8', breed='Мэйн-кун', info='Красивый мальчик',

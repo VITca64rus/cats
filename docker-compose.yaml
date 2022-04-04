@@ -17,6 +17,10 @@ services:
     restart: on-failure
     volumes:
     - .:/sber
+    environment:
+      - USER_DB=postgres
+      - PASSWORD_DB=root
+      - FLASK_SECRET=super_secret_key
     ports:
       - 3000:3000
     depends_on:

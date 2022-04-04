@@ -1,6 +1,5 @@
 import psycopg2
 from psycopg2 import OperationalError
-from werkzeug.security import generate_password_hash
 
 
 def create_connection(db_name, db_user, db_password, db_host, db_port):
@@ -25,19 +24,20 @@ def execute_read_query(connection, query, sort):
         if sort == "name":
             cursor.execute(f'SELECT * FROM ('
                            f'SELECT * FROM cat WHERE '
-                                f'setweight(to_tsvector(name), \'A\') || '
-                                f'setweight(to_tsvector(info), \'C\') || '
-                                f'setweight(to_tsvector(breed), \'B\') || '
-                                f'setweight(to_tsvector(CAST(age AS CHAR(15))), \'D\') @@ plainto_tsquery(\'{query}\')'
+                           f'setweight(to_tsvector(name), \'A\') || '
+                           f'setweight(to_tsvector(info), \'C\') || '
+                           f'setweight(to_tsvector(breed), \'B\') || '
+                           f'setweight(to_tsvector(CAST(age AS CHAR(15))), \'D\') @@ plainto_tsquery(\'{query}\')'
                            f'ORDER BY '
-                                f'ts_rank(setweight(to_tsvector(name), \'A\') || '
-                                f'setweight(to_tsvector(info), \'C\') ||'
-                                f'setweight(to_tsvector(breed), \'B\') || '
-                                f'setweight(to_tsvector(CAST(age AS CHAR(15))), \'D\'), '
-                                f'plainto_tsquery(\'{query}\')) DESC) as foo;')
+                           f'ts_rank(setweight(to_tsvector(name), \'A\') || '
+                           f'setweight(to_tsvector(info), \'C\') ||'
+                           f'setweight(to_tsvector(breed), \'B\') || '
+                           f'setweight(to_tsvector(CAST(age AS CHAR(15))), \'D\'), '
+                           f'plainto_tsquery(\'{query}\')) DESC) as foo;')
         else:
             cursor.execute(f'SELECT * FROM (SELECT * FROM cat WHERE to_tsvector(name) || to_tsvector(info) || '
-                           f'to_tsvector(breed) || to_tsvector(CAST(age AS CHAR(15))) @@ plainto_tsquery(\'{query}\')) a'
+                           f'to_tsvector(breed) || to_tsvector(CAST(age AS CHAR(15))) '
+                           f'@@ plainto_tsquery(\'{query}\')) a'
                            f's foo ORDER BY {sort};')
         res = cursor.fetchall()
         for i in res:

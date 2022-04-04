@@ -1,8 +1,9 @@
 from flask import render_template, request, redirect, flash, url_for, jsonify
 from flask_login import login_user, login_required
 from werkzeug.security import check_password_hash
+import os
 from sber.models import User, Cat
-from sber import app, db
+from sber import app
 from sber.full_text_search import create_connection, execute_read_query
 
 
@@ -15,7 +16,10 @@ def login_page():
         if user and check_password_hash(user.password, password):
             login_user(user)
             next_page = request.args.get('next')
-            return redirect(next_page)
+            if next_page:
+                return redirect(next_page)
+            else:
+                return render_template("cats.html")
         else:
             flash('Login or password is not correct')
     else:
@@ -71,24 +75,22 @@ def get_list():
     cat_id = request.args.get('id')
     sort = request.args.get('sort')
     find = request.args.get('find')
+    info = []
     if cat_id:
         return jsonify(get_result_for_id(cat_id))
     elif sort and find:
-        connect = create_connection("sber", "postgres", "root", "postgres", "5432")
+        connect = create_connection("sber", os.environ['USER_DB'], os.environ['PASSWORD_DB'], "postgres", "5432")
         if connect:
             if sort == '1' or (sort is None):
                 info = execute_read_query(connect, find, 'name')
             elif sort == '2':
-                info = execute_read_query (connect, find, 'breed')
+                info = execute_read_query(connect, find, 'breed')
             elif sort == '3':
-                info = execute_read_query (connect, find, 'age')
-            else:
-                return jsonify([])
+                info = execute_read_query(connect, find, 'age')
             connect.close()
         return jsonify(info)
     else:
         return jsonify(get_result_for_sort(sort))
-    return jsonify([])
 
 
 @app.after_request
