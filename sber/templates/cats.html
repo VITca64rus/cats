@@ -6,34 +6,19 @@
 </script>
 {% endblock %}
 
-{% block title %}
-    СберМурркет
-{% endblock %}
+{% block title %}СберМурркет{% endblock %}
 
 {% block body %}
     <form>
-        <table>
-            <tr>
-                <td>Я ищу...</td>
-                <td><input type="text" name="find"></td>
-            </tr>
-            <tr>
-                <td>Сортировка по</td>
-                <td>
-                    <select name="sort" onchange="with (this) Change(options [selectedIndex].value)">
-                        <option value="1">Умолчанию</option>
-                        <option value="2">Породе</option>
-                        <option value="3">Возрасту</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="button" onclick="pres()" value="Применить"></td>
-            </tr>
-        </table>
+        <input id="find_in" type="text" name="find" placeholder="Найти...">
+        Сортировка по:
+        <select name="sort" onchange="with (this) Change(options [selectedIndex].value)">
+            <option value="1">Умолчанию</option>
+            <option value="2">Породе</option>
+            <option value="3">Возрасту</option>
+        </select>
+        <input type="button" onclick="pres()" value="Применить">
     </form>
-
     <div id="cats"></div>
     <ul id="pagination"></ul>
-
 {% endblock %}

@@ -1,36 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Авторизация
-{% endblock %}
+{% block title %}Авторизация{% endblock %}
 
 {% block body %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-
-<form action="" method="POST">
-    <table>
-        {{ form.csrf_token }}
-        <tr>
-            <td>{{ form.login.label }}</td>
-            <td>{{ form.login(size=20) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form.password.label }}</td>
-            <td>{{ form.password(size=20) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form.submit }}</td>
-        </tr>
-    </table>
-</form>
-
+    <form action="" method="POST">
+        <table>
+            {{ form.csrf_token }}
+            <tr>
+                <td>{{ form.login.label }}</td>
+                <td>{{ form.login(size=20) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label }}</td>
+                <td>{{ form.password(size=20) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.submit }}</td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}

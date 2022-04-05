@@ -80,3 +80,20 @@ nav {
 	color: red;
 	border: 1px solid red;
 }
+
+#find_in {
+    background-color: white;
+    height: 25px;
+    background-image: url('img/searchicon.png');
+    background-position: 3px 2px;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+select{
+height: 25px;
+}
+
+input[type=button] {
+    height: 25px;
+}

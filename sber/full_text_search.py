@@ -13,7 +13,7 @@ def create_connection(db_name, db_user, db_password, db_host, db_port):
             port=db_port,
         )
     except OperationalError as e:
-        print(f"The error '{e}' occurred")
+        print(f"The error {e} occurred")
     return connection
 
 
@@ -44,5 +44,5 @@ def execute_read_query(connection, query, sort):
             result.append({'id': i[0], 'name': i[1], 'age': i[2], 'info': i[3], 'breed': i[4], 'photo': i[5]})
         return result
     except OperationalError as e:
-        print(f"The error '{e}' occurred")
+        print(f"The error {e} occurred")
         return result
