@@ -16,7 +16,7 @@ function ft_add_pagination(length)
     }
     for (var i = 0; i < Math.floor(length/count_pagination) + dop; i++)
     {
-        $('#pagination').append(`<li id="${i}" onClick="clickMe(this.id)">${i+1}</li>`);
+        $('#pagination').append(`<li id="${i}" onClick="pres(this.id)">${i+1}</li>`);
     }
 }
 
@@ -39,30 +39,17 @@ function ft_add_cats(data)
     }
 }
 
-function pres()
-{
-    document.getElementById('cats').innerHTML = '';
-    let input = document.querySelector('input');
-    let pageNum = 0;
-    $.getJSON('http://'+ window.location.hostname + ':3000/list?sort='+num+'&find='+ input.value, function(data) {
-        ft_add_pagination(data.length);
-        slice_data = data.slice(pageNum * count_pagination, pageNum * count_pagination + count_pagination);
-        ft_add_cats(slice_data);
-    });
-}
-
 function $_GET(key) {
     var p = window.location.search;
     p = p.match(new RegExp(key + '=([^&=]+)'));
     return p ? p[1] : false;
 }
 
-function clickMe(Num)
+function pres(pageNum=null)
 {
     document.getElementById('cats').innerHTML = '';
     let input = document.querySelector('input');
     if (num == null){num = 1}
-    let pageNum = +Num;
     $.getJSON('http://' + window.location.hostname + ':3000/list?sort='+num+'&find='+ input.value, function(data)
     {
         ft_add_pagination(data.length);
@@ -70,4 +57,3 @@ function clickMe(Num)
         ft_add_cats(slice_data);
     });
 }
-
