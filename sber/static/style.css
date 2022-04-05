@@ -1,9 +1,8 @@
 body {margin:0;}
 
-.content{
+.content {
     display: block;
     width: 800px;
-    height: 200px;
     margin: 0 auto 10px;
 }
 
@@ -23,6 +22,7 @@ nav {
   display: flex;
   padding-left: 0;
 }
+
 .menu a {
   padding: 1em;
   display: block;
@@ -30,18 +30,17 @@ nav {
   border-right: 1px solid #bdbebd;
   height: 20px
 }
-.four a:hover {background: #d3d3d3}
 
-.post{
+.post {
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.post:hover{
+.post:hover {
     background: #ebebeb;
 }
 
-.post_info{
+.post_info {
   display: inline-block;
   position: relative;
   bottom:0;
@@ -49,7 +48,7 @@ nav {
   width: 300px;
 }
 
-.post_text{
+.post_text {
     padding: 5px;
     position:absolute;
     bottom:3;
@@ -70,15 +69,17 @@ nav {
 	list-style-type: none;
 	margin-bottom: 50px;
 }
+
 #pagination li {
 	margin-right: 5px;
 	padding: 10px;
 	border: 1px solid black;
 }
+
 #pagination li:hover, #pagination li.active {
 	cursor: pointer;
-	color: red;
-	border: 1px solid red;
+	color: green;
+	border: 1px solid green;
 }
 
 #find_in {
@@ -90,7 +91,7 @@ nav {
     padding-left: 30px;
 }
 
-select{
+select {
 height: 25px;
 }
 

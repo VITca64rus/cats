@@ -8,16 +8,11 @@ function Change(number) {
 function ft_add_pagination(length)
 {
     var dop = 0;
-
     document.getElementById('pagination').innerHTML = '';
     if (length % count_pagination != 0)
-    {
         dop = 1
-    }
     for (var i = 0; i < Math.floor(length/count_pagination) + dop; i++)
-    {
         $('#pagination').append(`<li id="${i}" onClick="pres(this.id)">${i+1}</li>`);
-    }
 }
 
 function ft_add_cats(data)
@@ -49,7 +44,8 @@ function pres(pageNum=null)
 {
     document.getElementById('cats').innerHTML = '';
     let input = document.querySelector('input');
-    if (num == null){num = 1}
+    if (num == null)
+        num = 1
     $.getJSON('http://' + window.location.hostname + ':3000/list?sort='+num+'&find='+ input.value, function(data)
     {
         ft_add_pagination(data.length);

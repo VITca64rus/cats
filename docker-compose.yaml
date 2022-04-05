@@ -11,9 +11,9 @@ services:
     ports:
       - 5432:5432
 
-  sber1:
+  sber:
     build: .
-    container_name: sber1
+    container_name: sber
     restart: on-failure
     volumes:
     - .:/sber

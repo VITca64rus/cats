@@ -3,9 +3,9 @@ from flask_login import login_user, login_required, logout_user
 from werkzeug.security import check_password_hash
 import os
 from sber.models import User, Cat
+from sber.forms import LoginForm
 from sber import app
 from sber.full_text_search import create_connection, execute_read_query
-from sber.forms import LoginForm
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -46,29 +46,46 @@ def index():
     return render_template("index.html")
 
 
-def get_result_for_id(cat_id):
+def ft_create_list_dict(res):
+    result = []
+    if res:
+        for i in res:
+            result.append({'id': vars(i)['id'], 'name': vars(i)['name'], 'age': vars(i)['age'],
+                           'info': vars(i)['info'], 'breed': vars(i)['breed'], 'photo': vars(i)['photo']})
+    return result
+
+
+def ft_select_id(cat_id):
     result = []
     qre = Cat.query.filter_by(id=cat_id).first()
     if qre:
-        result.append({'id': qre.id, 'name': qre.name, 'age': qre.age, 'info': qre.info, 'breed': qre.breed,
-                       'photo': qre.photo})
+        result.append({'id': qre.id, 'name': qre.name, 'age': qre.age,
+                       'info': qre.info, 'breed': qre.breed, 'photo': qre.photo})
     return result
 
 
-def get_result_for_sort(sort):
-    result = []
+def ft_select_sort(sort):
+    res = None
     if sort == '1' or (sort is None):
-        qre = Cat.query.order_by(Cat.name)
+        res = Cat.query.order_by(Cat.name)
     elif sort == '2':
-        qre = Cat.query.order_by(Cat.breed)
+        res = Cat.query.order_by(Cat.breed)
     elif sort == '3':
-        qre = Cat.query.order_by(Cat.age)
-    else:
-        return result
-    for i in qre:
-        result.append({'id': vars(i)['id'], 'name': vars(i)['name'], 'age': vars(i)['age'],
-                       'info': vars(i)['info'], 'breed': vars(i)['breed'], 'photo': vars(i)['photo']})
-    return result
+        res = Cat.query.order_by(Cat.age)
+    return ft_create_list_dict(res)
+
+
+def ft_select_sort_find(sort, find):
+    res = None
+    connect = create_connection("sber", os.environ['USER_DB'], os.environ['PASSWORD_DB'], "postgres", "5432")
+    if sort == '1' or (sort is None):
+        res = execute_read_query(connect, find, 'name')
+    elif sort == '2':
+        res = execute_read_query(connect, find, 'breed')
+    elif sort == '3':
+        res = execute_read_query(connect, find, 'age')
+    connect.close()
+    return res
 
 
 @app.route('/list', methods=['GET'])
@@ -76,22 +93,12 @@ def get_list():
     cat_id = request.args.get('id')
     sort = request.args.get('sort')
     find = request.args.get('find')
-    info = []
     if cat_id:
-        return jsonify(get_result_for_id(cat_id))
+        return jsonify(ft_select_id(cat_id))
     elif sort and find:
-        connect = create_connection("sber", os.environ['USER_DB'], os.environ['PASSWORD_DB'], "postgres", "5432")
-        if connect:
-            if sort == '1' or (sort is None):
-                info = execute_read_query(connect, find, 'name')
-            elif sort == '2':
-                info = execute_read_query(connect, find, 'breed')
-            elif sort == '3':
-                info = execute_read_query(connect, find, 'age')
-            connect.close()
-        return jsonify(info)
+        return jsonify(ft_select_sort_find(sort, find))
     else:
-        return jsonify(get_result_for_sort(sort))
+        return jsonify(ft_select_sort(sort))
 
 
 @app.after_request
