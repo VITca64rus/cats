@@ -3,12 +3,16 @@ from sber import db, manager
 
 
 class User (db.Model, UserMixin):
+    __tablename__ = 'user'
+
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
 
 
 class Cat (db.Model):
+    __tablename__ = 'cat'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable=False)
     age = db.Column(db.Integer, nullable=False)

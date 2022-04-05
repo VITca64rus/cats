@@ -68,6 +68,7 @@ nav {
 	display: flex;
 	padding: 0;
 	list-style-type: none;
+	margin-bottom: 50px;
 }
 #pagination li {
 	margin-right: 5px;

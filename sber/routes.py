@@ -5,13 +5,15 @@ import os
 from sber.models import User, Cat
 from sber import app
 from sber.full_text_search import create_connection, execute_read_query
+from sber.forms import LoginForm
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
-    login = request.form.get('login')
-    password = request.form.get('password')
-    if login and password:
+    form = LoginForm()
+    if form.validate_on_submit():
+        login = form.login.data
+        password = form.password.data
         user = User.query.filter_by(login=login).first()
         if user and check_password_hash(user.password, password):
             login_user(user)
@@ -23,9 +25,7 @@ def login_page():
         else:
             logout_user()
             flash('Login or password is not correct')
-    else:
-        flash('Please fill login and password fields')
-    return render_template("login.html")
+    return render_template("login.html", form = form)
 
 
 @app.route('/admin/cat')
