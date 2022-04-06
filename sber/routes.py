@@ -25,7 +25,7 @@ def login_page():
         else:
             logout_user()
             flash('Login or password is not correct')
-    return render_template("login.html", form = form)
+    return render_template("login.html", form=form)
 
 
 @app.route('/admin/cat')
@@ -50,8 +50,10 @@ def ft_create_list_dict(res):
     result = []
     if res:
         for i in res:
-            result.append({'id': vars(i)['id'], 'name': vars(i)['name'], 'age': vars(i)['age'],
-                           'info': vars(i)['info'], 'breed': vars(i)['breed'], 'photo': vars(i)['photo']})
+            result.append({'id': vars(i)['id'], 'name': vars(i)['name'],
+                           'age': vars(i)['age'], 'info': vars(i)['info'],
+                           'breed': vars(i)['breed'],
+                           'photo': vars(i)['photo']})
     return result
 
 
@@ -60,7 +62,8 @@ def ft_select_id(cat_id):
     qre = Cat.query.filter_by(id=cat_id).first()
     if qre:
         result.append({'id': qre.id, 'name': qre.name, 'age': qre.age,
-                       'info': qre.info, 'breed': qre.breed, 'photo': qre.photo})
+                       'info': qre.info, 'breed': qre.breed,
+                       'photo': qre.photo})
     return result
 
 
@@ -77,7 +80,9 @@ def ft_select_sort(sort):
 
 def ft_select_sort_find(sort, find):
     res = None
-    connect = create_connection("sber", os.environ['USER_DB'], os.environ['PASSWORD_DB'], "postgres", "5432")
+    connect = create_connection("sber", os.environ['USER_DB'],
+                                os.environ['PASSWORD_DB'],
+                                "postgres", "5432")
     if sort == '1' or (sort is None):
         res = execute_read_query(connect, find, 'name')
     elif sort == '2':
