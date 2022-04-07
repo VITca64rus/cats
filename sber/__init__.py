@@ -12,7 +12,3 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + \
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 manager = LoginManager(app)
-from sber import routes
-from inner_db import inner
-db.create_all()
-inner()
